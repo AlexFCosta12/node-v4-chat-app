@@ -3,7 +3,7 @@
     <head>
         <title>Chat App</title>
         <link rel='icon' href="/img/favicon.png">
-        <link rel="stylesheet" href="/css/styles.min.css">
+        <link rel="stylesheet" href="/css/styles.css">
     </head>
     <body>
         <div class="chat">
@@ -25,6 +25,16 @@
 <!-- Em baixo estão varios templates definidos para depois usar no js-->
         <script id ="message-template" type="text/html">
             <div class="message">
+                <p>
+                    <span class="message__name">{{username}}</span>
+                    <span class="message__meta">{{createdAt}}</span>
+                </p>
+                <p>{{message}}</p>
+            </div>
+        </script>
+
+        <script id ="message-template-me" type="text/html">
+            <div class="message-me">
                 <p>
                     <span class="message__name">{{username}}</span>
                     <span class="message__meta">{{createdAt}}</span>

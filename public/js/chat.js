@@ -12,6 +12,7 @@ const $sidebar = document.querySelector('#sidebar')
 const messageTemplate = document.querySelector('#message-template').innerHTML
 const locationMessageTemplate = document.querySelector('#location-message-template').innerHTML
 const sidebarTemplate = document.querySelector('#sidebar-template').innerHTML
+const messageTemplateMe = document.querySelector('#message-template-me').innerHTML
 
 // Option
 // o Qs foi importado no HTML
@@ -42,15 +43,24 @@ const autoscroll = () => {
     }
 }
 
-// Message passou a ser Object criado no index, com message e date
+// Message passou a ser Object criado no index, com message e date -- Quando poder alterar verificar se é o user em questão se for colocar o texto a direita de outra cor, Ou seja criar outro template e acrescentar no css
 socket.on ('message', (message) => {
     console.log (message)
-    const html = Mustache.render(messageTemplate, {
-        username: message.username,
-        message: message.text,
-        // O libraria do moment está a ser chamado no html
-        createdAt: moment(message.createdAt).format('h:mm a')
-    })
+    let html
+    if (message.username === username.trim().toLowerCase()){
+        html = Mustache.render(messageTemplateMe,{
+            username: 'Me',
+            message: message.text,
+            createdAt: moment(message.createdAt).format('h:mm a')
+        })
+    }else{
+        html = Mustache.render(messageTemplate, {
+            username: message.username,
+            message: message.text,
+            // O libraria do moment está a ser chamado no html
+            createdAt: moment(message.createdAt).format('h:mm a')
+        })
+    }
     $messages.insertAdjacentHTML('beforeend', html)
     autoscroll()
 })
